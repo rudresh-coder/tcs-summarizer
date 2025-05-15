@@ -32,7 +32,7 @@ const Popup = () => {
             const chunks = splitTextIntoChunks(text, CHUNK_SIZE);
             let summaries = [];
             for (const chunk of chunks) {
-                const response = await fetch("http://localhost:3001/summarize", {
+                const response = await fetch("https://tcs-summarizer-backend.onrender.com/summarize", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ text: chunk }),
@@ -51,7 +51,7 @@ const Popup = () => {
             
             let finalSummary = summaries.join(" ");
             if (summaries.length > 1) {
-                const response = await fetch("http://localhost:3001/summarize", {
+                const response = await fetch("https://tcs-summarizer-backend.onrender.com/summarize", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ text: finalSummary }),
