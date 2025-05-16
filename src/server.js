@@ -42,7 +42,6 @@ app.post('/summarize', async (req, res) => {
     return res.status(400).json({ error: 'Input text is too short or invalid.' });
   }
   try {
-    console.log('Text to summarize:', text);
     const hfResponse = await axios.post(
       'https://api-inference.huggingface.co/models/facebook/bart-large-cnn',
       { inputs: text, parameters: { min_length, max_length } },
