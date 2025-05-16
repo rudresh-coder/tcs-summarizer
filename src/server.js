@@ -24,9 +24,20 @@ if (!HUGGINGFACE_API_KEY) {
 
 app.post('/summarize', async (req, res) => {
   const { text, length } = req.body;
-  let min_length = 20, max_length = 100;
-  if (length === "short") { min_length = 10; max_length = 40; }
-  if (length === "long") { min_length = 100; max_length = 300; }
+  const wordCount = text.trim().split(/\s+/).length;
+  let min_length, max_length;
+
+  if (length === "short") {
+    min_length = Math.max(10, Math.floor(wordCount * 0.01));
+    max_length = Math.max(40, Math.floor(wordCount * 0.03));
+  } else if (length === "long") {
+    min_length = Math.max(100, Math.floor(wordCount * 0.05));
+    max_length = Math.max(300, Math.floor(wordCount * 0.10));
+  } else { // medium
+    min_length = Math.max(20, Math.floor(wordCount * 0.025));
+    max_length = Math.max(100, Math.floor(wordCount * 0.05));
+  }
+
   if (!text || typeof text !== 'string' || text.trim().length < 20) {
     return res.status(400).json({ error: 'Input text is too short or invalid.' });
   }
