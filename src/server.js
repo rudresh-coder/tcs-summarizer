@@ -28,15 +28,19 @@ app.post('/summarize', async (req, res) => {
   let min_length, max_length;
 
   if (length === "short") {
-    min_length = Math.max(10, Math.floor(wordCount * 0.01));
-    max_length = Math.max(40, Math.floor(wordCount * 0.03));
+    min_length = Math.max(10, Math.floor(wordCount * 0.05));
+    max_length = Math.max(40, Math.floor(wordCount * 0.10));
   } else if (length === "long") {
-    min_length = Math.max(100, Math.floor(wordCount * 0.05));
-    max_length = Math.max(300, Math.floor(wordCount * 0.10));
+    min_length = Math.max(100, Math.floor(wordCount * 0.20));
+    max_length = Math.max(300, Math.floor(wordCount * 0.25));
   } else { // medium
-    min_length = Math.max(20, Math.floor(wordCount * 0.025));
-    max_length = Math.max(100, Math.floor(wordCount * 0.05));
+    min_length = Math.max(20, Math.floor(wordCount * 0.15));
+    max_length = Math.max(100, Math.floor(wordCount * 0.20));
   }
+
+  const MODEL_MAX_TOKENS = 1024;
+  max_length = Math.min(max_length, MODEL_MAX_TOKENS);
+  min_length = Math.min(min_length, max_length - 1); 
 
   if (!text || typeof text !== 'string' || text.trim().length < 20) {
     return res.status(400).json({ error: 'Input text is too short or invalid.' });

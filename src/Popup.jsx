@@ -21,14 +21,14 @@ const Popup = () => {
 
     const CHUNK_SIZE = 800;
 
-    function splitTextIntoChunks(text, chunkSize) {
+    const splitTextIntoChunks = (text, chunkSize = 800, overlap = 100) => {
         const words = text.split(/\s+/);
         const chunks = [];
-        for (let i = 0; i < words.length; i += chunkSize) {
+        for (let i = 0; i < words.length; i += chunkSize - overlap) {
             chunks.push(words.slice(i, i + chunkSize).join(' '));
         }
         return chunks;
-    }
+    };
     
     const handleSummarize = async () => {
         if (!text || text.trim().length < 20) {
@@ -47,10 +47,12 @@ const Popup = () => {
             const chunks = splitTextIntoChunks(text, CHUNK_SIZE);
             let summaries = [];
             for (const chunk of chunks) {
+                const prompt = "Summarize the following text, covering all key points and important details do not miss any important detail and dont make any mistakes:\n\n" + chunk;
+                const payload = { text: prompt, length: summaryLength };
                 const response = await fetch("https://tcs-summarizer-backend.onrender.com/summarize", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ text: chunk, length: summaryLength }),
+                    body: JSON.stringify(payload),
                 });
                 const data = await response.json();
                 if (data.summary_text) {
