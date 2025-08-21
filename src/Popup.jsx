@@ -322,14 +322,23 @@ const Popup = () => {
                     <div className="about-screen" style={{ width: "100%" }}>
                         <div className="usage-rules">
                             <h3>Privacy Policy</h3>
-                            <p>
-                                This extension does not collect, store, or share any personal information from users.
-                                Text submitted for summarization is sent to a backend server and processed using the Hugging Face API.
-                                The submitted text is used solely for generating a summary and is not stored or logged by the extension or backend.
-                                No personal identifiers (such as name, email, or IP address) are collected or stored.
-                                All data transmission is encrypted using HTTPS.
-                                For questions or concerns, contact: <a href="mailto:tcs.summarizer@gmail.com">tcs.summarizer@gmail.com</a>
-                            </p>
+                            <ul>
+                                <li>
+                                    <strong>No personal data collected:</strong> This extension does not collect, store, or share any personal information from users.
+                                </li>
+                                <li>
+                                    <strong>Text processing:</strong> Text submitted for summarization is sent to a backend server and processed using the Hugging Face API. The submitted text is used solely for generating a summary and is not stored or logged by the extension or backend.
+                                </li>
+                                <li>
+                                    <strong>No identifiers:</strong> No personal identifiers (such as name, email, or IP address) are collected or stored.
+                                </li>
+                                <li>
+                                    <strong>Secure transmission:</strong> All data transmission is encrypted using HTTPS.
+                                </li>
+                                <li>
+                                    <strong>Contact:</strong> For questions or concerns, contact: <a href="mailto:tcs.summarizer@gmail.com" style={{ color: "#5FA8D3" }}>tcs.summarizer@gmail.com</a>
+                                </li>
+                            </ul>
                             <button
                                 style={{
                                     marginTop: 16,
