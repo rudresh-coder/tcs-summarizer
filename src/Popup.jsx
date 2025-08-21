@@ -224,6 +224,15 @@ const Popup = () => {
                             >
                                 About
                             </button>
+                            <button
+                                className="sidebar-item"
+                                onClick={() => {
+                                    setScreen("privacy");
+                                    setSidebarOpen(false);
+                                }}
+                            >
+                                Privacy Policy
+                            </button>
                             <a
                                 href="mailto:tcs.summarizer@gmail.com?subject=Text Summarizer Feedback"
                                 className="sidebar-item"
@@ -305,6 +314,36 @@ const Popup = () => {
                         >
                             Back
                         </button>
+                        </div>
+                    </div>
+                )}
+
+                {screen === "privacy" && (
+                    <div className="about-screen" style={{ width: "100%" }}>
+                        <div className="usage-rules">
+                            <h3>Privacy Policy</h3>
+                            <p>
+                                This extension does not collect, store, or share any personal information from users.
+                                Text submitted for summarization is sent to a backend server and processed using the Hugging Face API.
+                                The submitted text is used solely for generating a summary and is not stored or logged by the extension or backend.
+                                No personal identifiers (such as name, email, or IP address) are collected or stored.
+                                All data transmission is encrypted using HTTPS.
+                                For questions or concerns, contact: <a href="mailto:tcs.summarizer@gmail.com">tcs.summarizer@gmail.com</a>
+                            </p>
+                            <button
+                                style={{
+                                    marginTop: 16,
+                                    background: "#5FA8D3",
+                                    color: "#1E2A38",
+                                    border: "none",
+                                    borderRadius: 8,
+                                    padding: "0.6em 1.2em",
+                                    cursor: "pointer"
+                                }}
+                                onClick={() => setScreen("input")}
+                            >
+                                Back
+                            </button>
                         </div>
                     </div>
                 )}
