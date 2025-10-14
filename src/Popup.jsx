@@ -58,7 +58,11 @@ const Popup = () => {
                 if (data.summary_text) {
                     summaries.push(data.summary_text);
                 } else if (data.error) {
-                    setSummary("Error: " + data.error);
+                    let msg = data.error;
+                    if (msg.includes("Too many requests")) {
+                        msg += " You have reached the daily summary limit. Please try again tomorrow.";
+                    }
+                    setSummary("Error: " + msg);
                     setScreen("result");
                     return;
                 }
@@ -78,7 +82,14 @@ const Popup = () => {
             }
             setSummary(finalSummary);
         } catch (error) {
-            setSummary("Error summarizing text.");
+            let errorMsg = "Error summarizing text.";
+            if (error.response && error.response.data && error.response.data.error) {
+                errorMsg += " " + error.response.data.error;
+            } else if (error.message) {
+                errorMsg += " " + error.message;
+            }
+            setSummary(errorMsg);
+            setScreen("result");
             console.error(error);
         }
         setScreen("result");
@@ -270,6 +281,33 @@ const Popup = () => {
                             <option value="long">Long</option>
                         </select>
                         <button onClick={handleSummarize}>Summarize</button>
+                        <button
+                            style={{
+                                marginBottom: "1em",
+                                background: "#5FA8D3",
+                                color: "#1E2A38",
+                                border: "none",
+                                borderRadius: 8,
+                                padding: "0.6em 1.2em",
+                                cursor: "pointer"
+                            }}
+                            onClick={async () => {
+                                try {
+                                    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+                                    chrome.tabs.sendMessage(tab.id, { action: "extractTandC" }, (response) => {
+                                        if (response && response.data) {
+                                            setText(response.data);
+                                        } else {
+                                            setText("Could not extract text from this page.");
+                                        }
+                                    });
+                                } catch (err) {
+                                    setText("Error extracting text from page.");
+                                }
+                            }}
+                        >
+                            Auto-Fill From Page
+                        </button>
                     </div>
                 )}
 

@@ -50,3 +50,7 @@ A Chrome extension that uses AI to summarize long texts, such as Terms and Condi
 ## Privacy
 
     This extension does not collect or store any personal data. Text submitted for summarization is sent to the Hugging Face API for processing and is not stored by the extension.
+    
+## Privacy Policy
+
+Read our privacy policy here: [https://sites.google.com/view/textsummeraizer/home](https://sites.google.com/view/textsummeraizer/home)

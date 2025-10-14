@@ -12,7 +12,7 @@
   "action": {
     "default_popup": "index.html"
   },
-  "permissions": ["activeTab", "scripting", "declarativeContent", "tabs"],
+  "permissions": ["activeTab", "scripting"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
