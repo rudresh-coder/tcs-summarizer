@@ -54,3 +54,7 @@ A Chrome extension that uses AI to summarize long texts, such as Terms and Condi
 ## Privacy Policy
 
 Read our privacy policy here: [https://sites.google.com/view/textsummeraizer/home](https://sites.google.com/view/textsummeraizer/home)
+
+## License
+
+This project is licensed under the MIT License.
